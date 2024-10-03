@@ -7,7 +7,6 @@ using Avalonia.Platform;
 using Avalonia.Styling;
 using Microsoft.Extensions.DependencyInjection;
 using Payhas.Adaptive.Avalonia.Sample.Services;
-using Payhas.Adaptive.Avalonia.Sample.Views;
 using Payhas.Adaptive.ViewModels;
 using Payhas.Adaptive.Views;
 using System;
@@ -44,14 +43,18 @@ namespace Payhas.Adaptive.Avalonia.Sample
                         new Uri("avares://Payhas.Adaptive.Avalonia.Sample/Assets/avalonia-logo.ico")))),
                     RequestedThemeVariant = ThemeVariant.Light,
                     WindowStartupLocation = WindowStartupLocation.CenterScreen,
-                    DataContext = services.GetRequiredService<AppViewModel>(),
+                    DataContext = services
+                        .GetRequiredService<AppViewModel>()
+                        .WithServiceProvider(services),
                 };
             }
             else if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)
             {
                 singleViewPlatform.MainView = new AppMainView
                 {
-                    DataContext = services.GetRequiredService<AppMainViewModel>()
+                    DataContext = services
+                        .GetRequiredService<AppMainViewModel>()
+                        .WithServiceProvider(services),
                 };
             }
 

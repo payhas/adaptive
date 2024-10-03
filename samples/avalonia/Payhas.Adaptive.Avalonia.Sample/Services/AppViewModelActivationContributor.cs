@@ -1,4 +1,5 @@
-﻿using Payhas.Adaptive.Services;
+﻿using Payhas.Adaptive.Navigations;
+using Payhas.Adaptive.Services;
 using Payhas.Adaptive.ViewModels;
 using System.Reactive.Disposables;
 using System.Threading.Tasks;
@@ -9,6 +10,7 @@ public class AppViewModelActivationContributor : ViewModelActivationContributor<
 {
     public override async Task OnActivation(CompositeDisposable disposables, AppViewModel viewModel)
     {
-        await viewModel.NavigationManager.Navigate<AppMainViewModel>();
+        await viewModel.NavigationManager!
+            .Navigate<AppMainViewModel>(NavigationScope.Base);
     }
 }

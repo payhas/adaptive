@@ -36,7 +36,7 @@
                     <TextBlock Text="Application Title"></TextBlock>
                 </StackPanel>
             </DockPanel>
-            <rxui:RoutedViewHost Router="{Binding NavigationManager.BaseScreen.Router}">
+            <rxui:RoutedViewHost Router="{Binding NavigationManager.Screen.Router}">
                 <rxui:RoutedViewHost.DefaultContent>
                     <TextBlock Text="Loading..."></TextBlock>
                 </rxui:RoutedViewHost.DefaultContent>

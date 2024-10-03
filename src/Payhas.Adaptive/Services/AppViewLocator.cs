@@ -14,14 +14,9 @@ public class AppViewLocator : IViewLocator
 
     public IViewFor? ResolveView<T>(T? viewModel, string? contract = null)
     {
-        var viewType = typeof(IViewFor<>).MakeGenericType(viewModel?.GetType() ?? typeof(T));
+        var viewType = typeof(IViewFor<>)
+            .MakeGenericType(viewModel?.GetType() ?? typeof(T));
 
-        var view = ServiceProvider.GetService(viewType) as IViewFor;
-        //if (view != null)
-        //{
-        //    view.ViewModel = viewModel;
-        //}
-
-        return view;
+        return ServiceProvider.GetService(viewType) as IViewFor;
     }
 }

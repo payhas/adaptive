@@ -49,9 +49,10 @@ public class NavigationScreen : ReactiveObject, IScreen, INavigationScreen
         where T : IRoutableViewModel
     {
         var vm = ServiceProvider.GetRequiredService<T>();
-        if (vm is BaseViewModelRoutable viewModel)
+        if (vm is BaseViewModel viewModel)
         {
             viewModel.HostScreen = this;
+            viewModel.ServiceProvider = ServiceProvider;
         }
 
         if (propertySetter != default)

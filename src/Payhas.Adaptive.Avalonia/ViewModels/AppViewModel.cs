@@ -2,15 +2,11 @@
 
 namespace Payhas.Adaptive.ViewModels;
 
-public class AppViewModel : BaseViewModel
+public class AppViewModel : NavigationRootViewModel
 {
     public AppViewModel(
-        IServiceProvider serviceProvider,
         INavigationManager navigationManager)
-        : base(serviceProvider)
+        : base(navigationManager, NavigationScope.Base)
     {
-        NavigationManager = navigationManager;
     }
-
-    public virtual INavigationManager NavigationManager { get; }
 }

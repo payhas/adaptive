@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Payhas.Adaptive.Screens;
+﻿using Payhas.Adaptive.Screens;
 using Payhas.Adaptive.ViewModels;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
@@ -12,22 +11,10 @@ namespace Payhas.Adaptive.Navigations;
 public interface INavigationManager
 {
     public INavigationManager? Parent { get; set; }
-    public INavigationScreen BaseScreen { get; set; }
-    public INavigationScreen ContentScreen { get; set; }
+    public INavigationScreen Screen { get; set; }
+    public NavigationScope Scope { get; set; }
 
-    public Task<IRoutableViewModel> Navigate(Type type);
-
-    public Task<T> Navigate<T>()
-        where T : IRoutableViewModel;
-
-    public Task<IRoutableViewModel> NavigateBase(Type type);
-
-    public Task<T> NavigateBase<T>()
-        where T : IRoutableViewModel;
-
-    public Task<IRoutableViewModel> NavigateContent(Type type);
-
-    public Task<T> NavigateContent<T>()
+    public Task<T> Navigate<T>(NavigationScope? scope, Action<T>? propertySetter = default)
         where T : IRoutableViewModel;
 }
 
@@ -35,115 +22,67 @@ public class NavigationManager : ReactiveObject, INavigationManager, IActivatabl
 {
     protected readonly CompositeDisposable Disposables = [];
 
-    public NavigationManager(IServiceProvider serviceProvider)
+    public NavigationManager(
+        INavigationScreen screen)
     {
-        ServiceProvider = serviceProvider;
-
-        BaseScreen = ServiceProvider.GetRequiredService<INavigationScreen>();
-        ContentScreen = ServiceProvider.GetRequiredService<INavigationScreen>();
+        Screen = screen;
 
         Activator = new ViewModelActivator();
         this.WhenActivated(disposables =>
         {
             Disposables.DisposeWith(disposables);
 
-            var canGoBackBase = this
-                .WhenAnyValue(x => x.BaseScreen.Router.NavigationStack.Count)
+            var canGoBack = this
+                .WhenAnyValue(x => x.Screen.Router.NavigationStack.Count)
                 .Select(count => count > 1);
-            canGoBackBase.ToPropertyEx(this, x => x.CanGoBackBase)
+            canGoBack.ToPropertyEx(this, x => x.CanGoBack)
                 .DisposeWith(disposables);
 
-            GoBackBaseCommand = ReactiveCommand.CreateFromObservable(
-                    () => BaseScreen.Router.NavigateBack.Execute(Unit.Default),
-                    canGoBackBase)
-                .DisposeWith(disposables);
-
-            var canGoBackContent = this
-                .WhenAnyValue(x => x.ContentScreen.Router.NavigationStack.Count)
-                .Select(count => count > 1);
-            canGoBackContent.ToPropertyEx(this, x => x.CanGoBackContent)
-                .DisposeWith(disposables);
-
-            GoBackContentCommand = ReactiveCommand.CreateFromObservable(
-                    () => ContentScreen.Router.NavigateBack.Execute(Unit.Default),
-                    canGoBackContent)
+            GoBackCommand = ReactiveCommand.CreateFromObservable(
+                    () => Screen.Router.NavigateBack.Execute(Unit.Default),
+                    canGoBack)
                 .DisposeWith(disposables);
         });
     }
 
     public ViewModelActivator Activator { get; }
 
-    protected IServiceProvider ServiceProvider { get; }
-
     public INavigationManager? Parent { get; set; }
-    public INavigationScreen BaseScreen { get; set; }
-    public INavigationScreen ContentScreen { get; set; }
+    public INavigationScreen Screen { get; set; }
+    public NavigationScope Scope { get; set; }
+        = NavigationScope.Base;
 
     [ObservableAsProperty]
-    public virtual bool CanGoBackBase { get; set; }
+    public virtual bool CanGoBack { get; set; }
 
-    [ObservableAsProperty]
-    public virtual bool CanGoBackContent { get; set; }
+    public virtual ReactiveCommand<Unit, IRoutableViewModel?>? GoBackCommand { get; private set; }
 
-    public virtual ReactiveCommand<Unit, IRoutableViewModel?>? GoBackBaseCommand { get; private set; }
-
-    public virtual ReactiveCommand<Unit, IRoutableViewModel?>? GoBackContentCommand { get; private set; }
-
-    public async Task<IRoutableViewModel> Navigate(Type type)
-    {
-        var method = GetType().GetMethod(nameof(Navigate), Type.EmptyTypes)!;
-        var generic = method.MakeGenericMethod(type);
-        var task = (Task)generic.Invoke(this, null)!;
-
-        await task.ConfigureAwait(false);
-
-        var resultProperty = task.GetType().GetProperty("Result")!;
-        return (IRoutableViewModel)resultProperty.GetValue(task)!;
-    }
-
-    public Task<T> Navigate<T>()
+    public Task<T> Navigate<T>(NavigationScope? scope, Action<T>? propertySetter = default)
         where T : IRoutableViewModel
     {
-        return typeof(ContentViewModelRoutable).IsAssignableFrom(typeof(T))
-            ? NavigateContent<T>()
-            : NavigateBase<T>();
+        return scope == null || scope == Scope
+            ? Screen.Navigate<T>(GetMergerPropertySetter(propertySetter))
+            : Parent!.Navigate<T>(scope, propertySetter);
     }
 
-    public async Task<IRoutableViewModel> NavigateBase(Type type)
-    {
-        var method = GetType().GetMethod(nameof(NavigateBase), Type.EmptyTypes)!;
-        var generic = method.MakeGenericMethod(type);
-        var task = (Task)generic.Invoke(this, null)!;
-
-        await task.ConfigureAwait(false);
-
-        var resultProperty = task.GetType().GetProperty("Result")!;
-        return (IRoutableViewModel)resultProperty.GetValue(task)!;
-    }
-
-    public virtual Task<T> NavigateBase<T>()
+    protected virtual Action<T> GetMergerPropertySetter<T>(Action<T>? propertySetter = default)
         where T : IRoutableViewModel
     {
-        return BaseScreen?.Navigate<T>()
-            ?? Parent!.NavigateBase<T>();
-    }
+        return vm =>
+        {
+            if (vm is BaseViewModel baseViewModel)
+            {
+                if (baseViewModel.NavigationManager != null)
+                {
+                    baseViewModel.NavigationManager.Parent = this;
+                }
+                else
+                {
+                    baseViewModel.NavigationManager = this;
+                }
+            }
 
-    public async Task<IRoutableViewModel> NavigateContent(Type type)
-    {
-        var method = GetType().GetMethod(nameof(NavigateContent), Type.EmptyTypes)!;
-        var generic = method.MakeGenericMethod(type);
-        var task = (Task)generic.Invoke(this, null)!;
-
-        await task.ConfigureAwait(false);
-
-        var resultProperty = task.GetType().GetProperty("Result")!;
-        return (IRoutableViewModel)resultProperty.GetValue(task)!;
-    }
-
-    public virtual Task<T> NavigateContent<T>()
-        where T : IRoutableViewModel
-    {
-        return ContentScreen?.Navigate<T>()
-            ?? NavigateBase<T>();
+            propertySetter?.Invoke(vm);
+        };
     }
 }

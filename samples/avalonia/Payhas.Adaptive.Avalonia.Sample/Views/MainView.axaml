@@ -84,7 +84,7 @@
         </SplitView.Pane>
 
 
-        <rxui:RoutedViewHost Router="{Binding #Navigation.Manager.BaseScreen.Router}">
+        <rxui:RoutedViewHost Router="{Binding #Navigation.Manager.Screen.Router}">
             <rxui:RoutedViewHost.DefaultContent>
                 <SplitView IsPaneOpen="True"
                        DisplayMode="Inline"
