@@ -1,5 +1,4 @@
 ﻿using Payhas.Adaptive.Navigations;
-using Payhas.Adaptive.Screens;
 using Payhas.Adaptive.Services;
 using Payhas.Adaptive.ViewModels;
 

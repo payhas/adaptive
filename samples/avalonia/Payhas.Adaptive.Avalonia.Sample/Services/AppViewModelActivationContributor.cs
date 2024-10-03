@@ -10,7 +10,9 @@ public class AppViewModelActivationContributor : ViewModelActivationContributor<
 {
     public override async Task OnActivation(CompositeDisposable disposables, AppViewModel viewModel)
     {
+        viewModel.NavigationManager!.Scope = NavigationScope.Root;
+
         await viewModel.NavigationManager!
-            .Navigate<AppMainViewModel>(NavigationScope.Base);
+            .Navigate<AppMainViewModel>(NavigationScope.Root);
     }
 }

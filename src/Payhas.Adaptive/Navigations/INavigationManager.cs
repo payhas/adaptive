@@ -1,5 +1,4 @@
-﻿using Payhas.Adaptive.Screens;
-using Payhas.Adaptive.ViewModels;
+﻿using Payhas.Adaptive.ViewModels;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using System.Reactive;
@@ -50,7 +49,7 @@ public class NavigationManager : ReactiveObject, INavigationManager, IActivatabl
     public INavigationManager? Parent { get; set; }
     public INavigationScreen Screen { get; set; }
     public NavigationScope Scope { get; set; }
-        = NavigationScope.Base;
+        = NavigationScope.None;
 
     [ObservableAsProperty]
     public virtual bool CanGoBack { get; set; }
@@ -70,16 +69,10 @@ public class NavigationManager : ReactiveObject, INavigationManager, IActivatabl
     {
         return vm =>
         {
-            if (vm is BaseViewModel baseViewModel)
+            if (vm is BaseViewModel baseViewModel &&
+                baseViewModel.NavigationManager != null)
             {
-                if (baseViewModel.NavigationManager != null)
-                {
-                    baseViewModel.NavigationManager.Parent = this;
-                }
-                else
-                {
-                    baseViewModel.NavigationManager = this;
-                }
+                baseViewModel.NavigationManager.Parent = this;
             }
 
             propertySetter?.Invoke(vm);

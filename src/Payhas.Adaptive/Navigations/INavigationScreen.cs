@@ -4,7 +4,7 @@ using ReactiveUI;
 using System.Reactive;
 using System.Reactive.Linq;
 
-namespace Payhas.Adaptive.Screens;
+namespace Payhas.Adaptive.Navigations;
 
 public interface INavigationScreen : IScreen
 {

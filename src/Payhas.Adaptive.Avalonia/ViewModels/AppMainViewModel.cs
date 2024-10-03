@@ -1,14 +1,6 @@
-﻿using Payhas.Adaptive.Navigations;
+﻿namespace Payhas.Adaptive.ViewModels;
 
-namespace Payhas.Adaptive.ViewModels;
-
-public class AppMainViewModel : NavigationRootViewModel
+public class AppMainViewModel : BaseViewModel
 {
-    public AppMainViewModel(
-        INavigationManager navigationManager)
-        : base(navigationManager, NavigationScope.Base)
-    {
-    }
-
     public string Greeting => "Welcome to Avalonia! Updated!";
 }

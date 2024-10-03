@@ -1,12 +1,8 @@
 ﻿using Payhas.Adaptive.Navigations;
+using System.Reactive.Disposables;
 
 namespace Payhas.Adaptive.ViewModels;
 
-public class AppViewModel : NavigationRootViewModel
+public class AppViewModel : BaseViewModel
 {
-    public AppViewModel(
-        INavigationManager navigationManager)
-        : base(navigationManager, NavigationScope.Base)
-    {
-    }
 }

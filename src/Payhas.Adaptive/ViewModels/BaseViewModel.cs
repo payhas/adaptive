@@ -12,6 +12,7 @@ namespace Payhas.Adaptive.ViewModels;
 
 public abstract class BaseViewModel : ReactiveObject, IActivatableViewModel, IRoutableViewModel
 {
+    private INavigationManager? _navigationManager;
     protected readonly CompositeDisposable Disposables = [];
 
     protected BaseViewModel()
@@ -48,7 +49,7 @@ public abstract class BaseViewModel : ReactiveObject, IActivatableViewModel, IRo
 
     public IServiceProvider? ServiceProvider { get; set; }
 
-    public INavigationManager? NavigationManager { get; set; }
+    public INavigationManager? NavigationManager => _navigationManager ??= ServiceProvider?.GetRequiredService<INavigationManager>();
 
     public Interaction<Exception, Unit> ExceptionHandler { get; }
 
@@ -73,6 +74,13 @@ public abstract class BaseViewModel : ReactiveObject, IActivatableViewModel, IRo
 
     protected virtual Task OnActivation(CompositeDisposable disposables)
     {
+        if (NavigationManager is IActivatableViewModel activatableViewModel)
+        {
+            activatableViewModel.Activator
+                .Activate()
+                .DisposeWith(disposables);
+        }
+
         return Task.CompletedTask;
     }
 
