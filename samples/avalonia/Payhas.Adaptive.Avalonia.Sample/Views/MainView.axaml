@@ -1,0 +1,170 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:rxui="http://reactiveui.net"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:Payhas.Adaptive.Avalonia.Sample.ViewModels"
+             xmlns:adaptive="clr-namespace:Payhas.Adaptive.Controls;assembly=Payhas.Adaptive.Avalonia"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Payhas.Adaptive.Avalonia.Sample.Views.MainView"
+             x:DataType="vm:MainViewModel">
+  <Design.DataContext>
+    <!-- This only sets the DataContext for the previewer in an IDE,
+         to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+    <vm:MainViewModel />
+  </Design.DataContext>
+
+    <adaptive:Navigation Name="Navigation">
+    <SplitView IsPaneOpen=""
+               DisplayMode="CompactOverlay"
+               CompactPaneLength="48"
+               OpenPaneLength="288"
+               PaneBackground="LightGray">
+        <SplitView.Pane>
+            <DockPanel>
+                <StackPanel DockPanel.Dock="Top"
+                            Background="LightGray">
+                    <StackPanel Orientation="Horizontal">
+                        <Button Content="="
+                                Background="{x:Null}"
+                                Width="48" Height="48"
+                                VerticalContentAlignment="Center"
+                                HorizontalContentAlignment="Center">
+                        </Button>
+                        <TextBlock Text="Application Title with a very long test"
+                                   Padding="8"
+                                   VerticalAlignment="Center">
+                        </TextBlock>
+                    </StackPanel>
+                </StackPanel>
+
+                <StackPanel DockPanel.Dock="Bottom">
+                    <StackPanel Orientation="Horizontal">
+                        <Button Content="S"
+                                Background="{x:Null}"
+                                Width="48" Height="48"
+                                VerticalContentAlignment="Center"
+                                HorizontalContentAlignment="Center">
+                        </Button>
+                        <TextBlock Text="Settings"
+                                   Padding="8"
+                                   VerticalAlignment="Center">
+                        </TextBlock>
+                    </StackPanel>                    
+                </StackPanel>
+                
+                <StackPanel Orientation="Vertical"
+                            VerticalAlignment="Top">
+                    <StackPanel Orientation="Horizontal">
+                        <Button Content="F"
+                                Background="{x:Null}"
+                                Width="48" Height="48"
+                                VerticalContentAlignment="Center"
+                                HorizontalContentAlignment="Center">
+                        </Button>
+                        <TextBlock Text="Files"
+                                   Padding="8"
+                                   VerticalAlignment="Center">
+                        </TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Button Content="C"
+                                Background="{x:Null}"
+                                Width="48" Height="48"
+                                VerticalContentAlignment="Center"
+                                HorizontalContentAlignment="Center">
+                        </Button>
+                        <TextBlock Text="Chat"
+                                   Padding="8"
+                                   VerticalAlignment="Center">
+                        </TextBlock>
+                    </StackPanel>
+                </StackPanel>
+            </DockPanel>
+        </SplitView.Pane>
+
+
+        <rxui:RoutedViewHost Router="{Binding #Navigation.Manager.BaseScreen.Router}">
+            <rxui:RoutedViewHost.DefaultContent>
+                <SplitView IsPaneOpen="True"
+                       DisplayMode="Inline"
+                       OpenPaneLength="240">
+                    <SplitView.Pane>
+                        <DockPanel>
+                            <StackPanel DockPanel.Dock="Top"
+                                        Background="LightGray">
+                                <StackPanel Orientation="Horizontal"
+                                            Height="48">
+                                    <TextBlock Text="Files Storage"
+                                               Padding="8"
+                                               VerticalAlignment="Center">
+                                    </TextBlock>
+                                </StackPanel>
+                            </StackPanel>
+
+                            <StackPanel DockPanel.Dock="Bottom">
+                                <StackPanel
+                                            Orientation="Horizontal"
+                                            HorizontalAlignment="Center">
+                                    <TextBlock Text="Total used space 15%"
+                                               Padding="8"
+                                               VerticalAlignment="Bottom">
+                                    </TextBlock>
+                                </StackPanel>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Vertical"
+                                        VerticalAlignment="Top"
+                                        Margin="16">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Folder 1"
+                                               Padding="8"
+                                               VerticalAlignment="Center">
+                                    </TextBlock>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Folder 2"
+                                               Padding="16, 8"
+                                               VerticalAlignment="Center">
+                                    </TextBlock>
+                                </StackPanel>
+                            </StackPanel>
+                        </DockPanel>
+                    </SplitView.Pane>
+
+                    <DockPanel>
+                        <StackPanel Height="48"
+                                    Background="LightGray"
+                                    DockPanel.Dock="Top">
+                            <DockPanel>
+                                <StackPanel DockPanel.Dock="Left"
+                                            Orientation="Horizontal">
+                                    <Button Content="&lt;-"
+                                            Width="48" Height="48"
+                                            VerticalContentAlignment="Center"
+                                            HorizontalContentAlignment="Center"
+                                            Background="{x:Null}">
+                                    </Button>
+                                    <TextBlock Text="Folder 1 / Another"
+                                               VerticalAlignment="Center"></TextBlock>
+                                </StackPanel>
+
+                                <StackPanel DockPanel.Dock="Right">
+                                    <Button Content="Upload"
+                                            Height="40" Margin="4"
+                                            VerticalContentAlignment="Center"></Button>
+                                </StackPanel>
+
+                                <StackPanel></StackPanel>
+                            </DockPanel>
+                        </StackPanel>
+
+                        <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </DockPanel>
+                </SplitView>
+            </rxui:RoutedViewHost.DefaultContent>
+        </rxui:RoutedViewHost>
+        
+    </SplitView>
+    </adaptive:Navigation>
+</UserControl>
