@@ -1,6 +1,6 @@
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
-using Payhas.Adaptive.Avalonia.Sample.ViewModels;
+using Payhas.Adaptive.ViewModels;
 using System;
 
 namespace Payhas.Adaptive.Avalonia.Sample
@@ -25,7 +25,7 @@ namespace Payhas.Adaptive.Avalonia.Sample
 
         public bool Match(object? data)
         {
-            return data is ViewModelBase;
+            return data is BaseViewModel;
         }
     }
 }

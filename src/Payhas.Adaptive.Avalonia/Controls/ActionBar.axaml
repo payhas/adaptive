@@ -1,0 +1,63 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:a="clr-namespace:Payhas.Adaptive.Controls;assembly=Payhas.Adaptive"
+        xmlns:t="using:Payhas.Adaptive.Templates"
+        xmlns:system="using:System.Collections.Generic"
+        xmlns:controls="using:Payhas.Adaptive.Controls">
+
+  <!--
+    Additional resources 
+    Using Control Themes:
+         https://docs.avaloniaui.net/docs/basics/user-interface/styling/control-themes
+    Using Theme Variants:
+         https://docs.avaloniaui.net/docs/guides/styles-and-resources/how-to-use-theme-variants
+  -->
+  
+  <Design.PreviewWith>
+    <StackPanel Width="600" Spacing="10">
+      <StackPanel.Resources>
+        <system:List x:Key="actions" x:TypeArguments="a:IAction">
+          <a:Action Label="Test Item 1"
+                    IconSource="/Assets/avalonia-logo.ico"/>
+          <a:Action Label="Test Item 2"/>
+        </system:List>
+      </StackPanel.Resources>
+      <StackPanel Background="{DynamicResource SystemRegionBrush}"
+                  controls:AssetSourceScope.BaseUri="avares://Payhas.Adaptive.Avalonia">
+        <!--With Actions ItemsSource-->
+        <controls:ActionBar Actions="{StaticResource actions}" />
+        <!--With Direct Items-->
+        <controls:ActionBar>
+          <controls:ActionBarItem Label="Test Item 3">
+            <controls:ActionBarItem.Icon>
+              <TextBlock>😊</TextBlock>
+            </controls:ActionBarItem.Icon>
+          </controls:ActionBarItem>
+          <controls:ActionBarItem Label="Test Ite 4"/>
+        </controls:ActionBar>
+      </StackPanel>
+    </StackPanel>
+  </Design.PreviewWith>
+ 
+  <ControlTheme x:Key="{x:Type controls:ActionBar}"
+                BasedOn="{StaticResource {x:Type Menu}}"
+                TargetType="controls:ActionBar">
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Menu ItemsSource="{TemplateBinding Actions}">
+          <Menu.ItemTemplate>
+            <t:DataTemplateSelector>
+              <DataTemplate x:Key="{x:Type a:Action}" DataType="a:Action">
+                <controls:ActionBarItem Label="{Binding Label}"
+                                        IconSource="{Binding IconSource}"
+                                        OnClickCommand="{Binding OnClickCommand}"/>
+              </DataTemplate>
+              <DataTemplate x:Key="{x:Type controls:ActionBarItem}" DataType="controls:ActionBarItem">
+              </DataTemplate>
+            </t:DataTemplateSelector>
+          </Menu.ItemTemplate>
+        </Menu>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+</ResourceDictionary>

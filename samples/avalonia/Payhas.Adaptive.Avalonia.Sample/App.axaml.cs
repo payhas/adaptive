@@ -1,15 +1,10 @@
 using Avalonia;
-using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
-using Avalonia.Media.Imaging;
-using Avalonia.Platform;
-using Avalonia.Styling;
 using Microsoft.Extensions.DependencyInjection;
-using Payhas.Adaptive.Avalonia.Sample.Services;
-using Payhas.Adaptive.ViewModels;
-using Payhas.Adaptive.Views;
-using System;
+using Payhas.Adaptive.Avalonia.Sample.ViewModels;
+using Payhas.Adaptive.Avalonia.Sample.Views;
+using Payhas.Adaptive.Controls;
 
 namespace Payhas.Adaptive.Avalonia.Sample
 {
@@ -27,35 +22,32 @@ namespace Payhas.Adaptive.Avalonia.Sample
             collection
                 .AddAdaptive()
                 .AddAdaptiveAvalonia()
-                .AddAdaptiveViewModelActivationContributor<AppViewModel, AppViewModelActivationContributor>();
+                .AddAdaptiveAvaloniaView<MainViewModel, MainView>(true);
 
             // Creates a ServiceProvider containing services from the provided IServiceCollection
             var services = collection.BuildServiceProvider();
             services.UseRxViewLocator();
 
+            var mainView = services.GetRequiredService<MainView>();
+            mainView.DataContext = services.GetRequiredService<MainViewModel>();
+
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
-                desktop.MainWindow = new AppWindow
+                desktop.MainWindow = new MainWindow
                 {
-                    Title = "Avalonia Sample",
-                    Width = 1024, Height = 728,
-                    Icon = new WindowIcon(new Bitmap(AssetLoader.Open(
-                        new Uri("avares://Payhas.Adaptive.Avalonia.Sample/Assets/avalonia-logo.ico")))),
-                    RequestedThemeVariant = ThemeVariant.Light,
-                    WindowStartupLocation = WindowStartupLocation.CenterScreen,
-                    DataContext = services
-                        .GetRequiredService<AppViewModel>()
-                        .WithServiceProvider(services),
+                    //Content = new Page
+                    //{
+                    //    ToolBar = new ToolBar
+                    //    {
+                    //        Height = 32,
+                    //    },
+                        Content = mainView,
+                    //},
                 };
             }
             else if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)
             {
-                singleViewPlatform.MainView = new AppMainView
-                {
-                    DataContext = services
-                        .GetRequiredService<AppMainViewModel>()
-                        .WithServiceProvider(services),
-                };
+                singleViewPlatform.MainView = mainView;
             }
 
             base.OnFrameworkInitializationCompleted();

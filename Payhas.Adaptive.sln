@@ -11,6 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Payhas.Adaptive", "src\Payh
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Solution Items", "_Solution Items", "{888524BB-FB6C-4B91-A62F-811ED353E9AC}"
 	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
 		.gitignore = .gitignore
 		Directory.Build.props = Directory.Build.props
 		LICENSE = LICENSE
@@ -21,15 +22,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{6B6F
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "avalonia", "avalonia", "{328FA153-5E42-4CC4-BC3E-7043A33B859C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Payhas.Adaptive.Avalonia.Sample", "samples\avalonia\Payhas.Adaptive.Avalonia.Sample\Payhas.Adaptive.Avalonia.Sample.csproj", "{B8FB99B7-971E-4146-8860-247F347E37DA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Payhas.Adaptive.Avalonia.Sample", "samples\avalonia\Payhas.Adaptive.Avalonia.Sample\Payhas.Adaptive.Avalonia.Sample.csproj", "{B8FB99B7-971E-4146-8860-247F347E37DA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Payhas.Adaptive.Avalonia.Sample.Android", "samples\avalonia\Payhas.Adaptive.Avalonia.Sample.Android\Payhas.Adaptive.Avalonia.Sample.Android.csproj", "{79ACF9FC-A741-4EDE-9BAF-47E6589DEEC0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Payhas.Adaptive.Avalonia.Sample.Android", "samples\avalonia\Payhas.Adaptive.Avalonia.Sample.Android\Payhas.Adaptive.Avalonia.Sample.Android.csproj", "{79ACF9FC-A741-4EDE-9BAF-47E6589DEEC0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Payhas.Adaptive.Avalonia.Sample.Desktop", "samples\avalonia\Payhas.Adaptive.Avalonia.Sample.Desktop\Payhas.Adaptive.Avalonia.Sample.Desktop.csproj", "{9F4FEEEC-E767-411B-A28B-D9606E3C9A15}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Payhas.Adaptive.Avalonia.Sample.Desktop", "samples\avalonia\Payhas.Adaptive.Avalonia.Sample.Desktop\Payhas.Adaptive.Avalonia.Sample.Desktop.csproj", "{9F4FEEEC-E767-411B-A28B-D9606E3C9A15}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Payhas.Adaptive.Avalonia.Sample.iOS", "samples\avalonia\Payhas.Adaptive.Avalonia.Sample.iOS\Payhas.Adaptive.Avalonia.Sample.iOS.csproj", "{A24672CF-9623-4172-8416-3710AA6AD983}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Payhas.Adaptive.Avalonia.Sample.iOS", "samples\avalonia\Payhas.Adaptive.Avalonia.Sample.iOS\Payhas.Adaptive.Avalonia.Sample.iOS.csproj", "{A24672CF-9623-4172-8416-3710AA6AD983}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Payhas.Adaptive.Avalonia.Sample.Browser", "samples\avalonia\Payhas.Adaptive.Avalonia.Sample.Browser\Payhas.Adaptive.Avalonia.Sample.Browser.csproj", "{0B067498-1E42-4251-B508-8DF01E3420A2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Payhas.Adaptive.Avalonia.Sample.Browser", "samples\avalonia\Payhas.Adaptive.Avalonia.Sample.Browser\Payhas.Adaptive.Avalonia.Sample.Browser.csproj", "{0B067498-1E42-4251-B508-8DF01E3420A2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

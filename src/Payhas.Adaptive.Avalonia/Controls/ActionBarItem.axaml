@@ -1,0 +1,50 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="using:Payhas.Adaptive.Controls">
+  
+  <!--
+    Additional resources 
+    Using Control Themes:
+         https://docs.avaloniaui.net/docs/basics/user-interface/styling/control-themes
+    Using Theme Variants:
+         https://docs.avaloniaui.net/docs/guides/styles-and-resources/how-to-use-theme-variants
+  -->
+  
+  <Design.PreviewWith>
+    <StackPanel Width="220" Spacing="10"
+                controls:AssetSourceScope.BaseUri="avares://Payhas.Adaptive.Avalonia">
+      <StackPanel Background="{DynamicResource SystemRegionBrush}">
+        
+        <controls:ActionBarItem Label="Test Without Icon"/>
+        
+        <controls:ActionBarItem Label="Test With Object Icon">
+          <controls:ActionBarItem.Icon>
+            <TextBlock>😊</TextBlock>
+          </controls:ActionBarItem.Icon>
+        </controls:ActionBarItem>
+        
+        <controls:ActionBarItem Label="Test With Image Icon">
+          <controls:ActionBarItem.Icon>
+            <Image Source="/Assets/avalonia-logo.ico"/>
+          </controls:ActionBarItem.Icon>
+        </controls:ActionBarItem>
+        
+        <controls:ActionBarItem Label="Test With IconSource"
+                                IconSource="/Assets/avalonia-logo.ico"/>
+        
+        <controls:ActionBarItem IconSource="/Assets/avalonia-logo.ico"/>
+      </StackPanel>
+    </StackPanel>
+  </Design.PreviewWith>
+ 
+  <ControlTheme x:Key="{x:Type controls:ActionBarItem}" TargetType="controls:ActionBarItem">
+    <Setter Property="Template">
+      <ControlTemplate>
+        <MenuItem Icon="{TemplateBinding Icon}"
+                  Header="{TemplateBinding Label}"
+                  Command="{TemplateBinding OnClickCommand}">
+        </MenuItem>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+</ResourceDictionary>

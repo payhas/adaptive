@@ -1,0 +1,22 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:converters="using:Payhas.Adaptive.Converters">
+  <Design.PreviewWith>
+    <Border Padding="20">
+      <!-- Add Controls for Previewer Here -->
+    </Border>
+  </Design.PreviewWith>
+
+  <!-- Add Styles Here -->
+  <Styles.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <MergeResourceInclude Source="/Controls/Window.axaml" />
+        <MergeResourceInclude Source="/Controls/Page.axaml" />
+        <MergeResourceInclude Source="/Controls/ToolBar.axaml" />
+        <MergeResourceInclude Source="/Controls/ActionBar.axaml" />
+        <MergeResourceInclude Source="/Controls/ActionBarItem.axaml" />
+      </ResourceDictionary.MergedDictionaries>
+    </ResourceDictionary>
+  </Styles.Resources>
+</Styles>

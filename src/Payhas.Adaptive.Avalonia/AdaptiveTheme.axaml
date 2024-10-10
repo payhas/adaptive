@@ -1,0 +1,15 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:converters="using:Payhas.Adaptive.Converters">
+  <Design.PreviewWith>
+    <Border Padding="20">
+      <!-- Add Controls for Previewer Here -->
+    </Border>
+  </Design.PreviewWith>
+
+  <Styles.Resources>
+  </Styles.Resources>
+
+  <!-- Add Styles Here -->
+    <StyleInclude Source="/AdaptiveControls.axaml" />
+</Styles>

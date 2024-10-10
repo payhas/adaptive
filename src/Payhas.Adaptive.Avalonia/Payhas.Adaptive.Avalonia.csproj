@@ -6,6 +6,10 @@
     <Nullable>enable</Nullable>
     <RootNamespace>Payhas.Adaptive</RootNamespace>
   </PropertyGroup>
+
+  <ItemGroup>
+    <AvaloniaResource Include="Assets\**" />
+  </ItemGroup>
   
   <ItemGroup>
     <PackageReference Include="Avalonia" Version="$(AvaloniaVersion)" />

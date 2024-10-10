@@ -1,47 +1,30 @@
-<Window xmlns="https://github.com/avaloniaui"
-        xmlns:rxui="http://reactiveui.net"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:vm="using:Payhas.Adaptive.Avalonia.Sample.ViewModels"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:app="clr-namespace:Payhas.Adaptive.Avalonia.Sample"
-        xmlns:views="clr-namespace:Payhas.Adaptive.Avalonia.Sample.Views"
-        xmlns:adaptive="clr-namespace:Payhas.Adaptive.Controls;assembly=Payhas.Adaptive.Avalonia"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-        x:Class="Payhas.Adaptive.Avalonia.Sample.Views.MainWindow"
-        Icon="/Assets/avalonia-logo.ico"
-        RequestedThemeVariant="Light"
-        Title="Payhas.Adaptive.Avalonia.Sample">
-    <adaptive:Navigation Name="MainNavigation" >
-        <DockPanel>
-            <DockPanel Height="32"
-                       Background="LightGray"
-                       DockPanel.Dock="Top">
-                <StackPanel Margin="5,1"
-                            DockPanel.Dock="Left"
-                            Orientation="Horizontal">
-                    <Button Content="&lt;-"
-                            Width="30" Height="30"
-                            Background="{x:Null}">
-                    </Button>
-                    <Button Content="="
-                            Width="30" Height="30"
-                            Background="{x:Null}">
-                    </Button>
-                </StackPanel>
-                <StackPanel Margin="5,1"
-                            DockPanel.Dock="Right"
-                            Orientation="Horizontal">
-                    <Button Content="Theme"></Button>
-                    <Button Content="User"></Button>
-                </StackPanel>
-                <StackPanel Margin="1"
-                            Orientation="Horizontal"
-                            VerticalAlignment="Center">
-                    <TextBlock Text="Application Title"></TextBlock>
-                </StackPanel>
-            </DockPanel>
-            <views:MainView />
-        </DockPanel>
-    </adaptive:Navigation>
-</Window>
+<a:Window xmlns="https://github.com/avaloniaui"
+          xmlns:rxui="http://reactiveui.net"
+          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+          xmlns:vm="using:Payhas.Adaptive.Avalonia.Sample.ViewModels"
+          xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+          xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+          xmlns:app="clr-namespace:Payhas.Adaptive.Avalonia.Sample"
+          xmlns:views="clr-namespace:Payhas.Adaptive.Avalonia.Sample.Views"
+          xmlns:a="clr-namespace:Payhas.Adaptive.Controls;assembly=Payhas.Adaptive.Avalonia"
+          mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+          x:Class="Payhas.Adaptive.Avalonia.Sample.Views.MainWindow"
+          Width="1024" Height="728"
+          WindowStartupLocation="CenterScreen"
+          Icon="/Assets/avalonia-logo.ico"
+          Title="Payhas.Adaptive.Avalonia.Sample"
+          ExtendClientAreaToDecorationsHint="True"
+          Name="App">
+  <a:Window.ToolBar>
+    <a:ToolBar Height="32" Title="Adaptive Sample">
+      <a:ToolBar.NavBar>
+        <a:ActionBarItem Label="&lt;-" />
+      </a:ToolBar.NavBar>
+      <a:ToolBar.ActionBar>
+        <a:ActionBarItem Label="Theme" OnClickCommand="{Binding #App.ToggleThemeCommand}" />
+      </a:ToolBar.ActionBar>
+    </a:ToolBar>
+  </a:Window.ToolBar>
+
+  <views:MainView />
+</a:Window>

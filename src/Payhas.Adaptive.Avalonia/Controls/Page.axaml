@@ -1,0 +1,54 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="using:Payhas.Adaptive.Controls">
+
+  <!--
+    Additional resources 
+    Using Control Themes:
+         https://docs.avaloniaui.net/docs/basics/user-interface/styling/control-themes
+    Using Theme Variants:
+         https://docs.avaloniaui.net/docs/guides/styles-and-resources/how-to-use-theme-variants
+  -->
+  
+  <Design.PreviewWith>
+    <StackPanel Width="400" Height="600" Spacing="10">      
+        <StackPanel Background="{DynamicResource SystemRegionBrush}">
+            <controls:Page Background="Yellow">
+              
+                <controls:Page.ToolBar>
+                  <controls:ToolBar Height="48" Title="Header"/>
+                </controls:Page.ToolBar>
+
+              <TextBlock Text="Content"
+                         VerticalAlignment="Center"
+                         HorizontalAlignment="Center"></TextBlock>
+            </controls:Page>
+        </StackPanel>
+    </StackPanel>
+  </Design.PreviewWith>
+ 
+  <ControlTheme x:Key="{x:Type controls:Page}" TargetType="controls:Page">
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="{TemplateBinding CornerRadius}"
+                Background="{TemplateBinding Background}"
+                Padding="{TemplateBinding Padding}">
+          <DockPanel>
+              <ContentPresenter DockPanel.Dock="Top"
+                                Content="{TemplateBinding ToolBar}"
+                                Padding="{TemplateBinding ToolBarPadding}" />
+                
+              <ContentPresenter Name="PART_ContentPresenter"
+                                ContentTemplate="{TemplateBinding ContentTemplate}"
+                                Content="{TemplateBinding Content}"
+                                RecognizesAccessKey="True"
+                                VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"/>
+          </DockPanel>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+</ResourceDictionary>
